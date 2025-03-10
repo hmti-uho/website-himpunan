@@ -7,4 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('achievements', AchievementController::class);
+Route::get("/achievements", [AchievementController::class, "index"])->name("achievements.index");
+
+Route::get("/achievements/{id}", [AchievementController::class, "show"])->name("achievements.show");

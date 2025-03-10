@@ -16,7 +16,7 @@ class AchievementController extends Controller
         $achievements = Achievement::all();
 
         // Kirim data ke view achievement.blade.php
-        return view("achievement", compact("achievements"));
+        return view("achievements", compact("achievements"));
     }
 
     /**

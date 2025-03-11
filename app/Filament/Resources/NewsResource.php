@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
+use App\Models\News;
 use Filament\Tables;
-use App\Models\Event;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -13,19 +13,18 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\EventResource\Pages;
+use App\Filament\Resources\NewsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\EventResource\RelationManagers;
+use App\Filament\Resources\NewsResource\RelationManagers;
 
-class EventResource extends Resource
+class NewsResource extends Resource
 {
-    protected static ?string $model = Event::class;
+    protected static ?string $model = News::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     public static function form(Form $form): Form
     {
@@ -35,21 +34,17 @@ class EventResource extends Resource
                     ->label('Upload Image')
                     ->image()
                     ->disk('public')
-                    ->directory('events')
+                    ->directory('news')
                     ->nullable(),
-
                 TextInput::make('title')
                     ->label('Title')
                     ->required()
                     ->maxLength(255),
-
-                RichEditor::make('description')
-                    ->label('Description')
+                RichEditor::make('content')
+                    ->label('Content')
                     ->required()
                     ->columnSpanFull()
-                    ->fileAttachmentsDirectory('events/image-description'),
-
-                DatePicker::make('date')
+                    ->fileAttachmentsDirectory('news/image-content'),
             ]);
     }
 
@@ -67,19 +62,16 @@ class EventResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('description')
-                    ->label('Description')
+                TextColumn::make('content')
+                    ->label('Content')
                     ->limit(50), // Hanya menampilkan 50 karakter pertama
-
-                TextColumn::make('date')
-                    ->label('Date')
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()->after(function (Event $record) {
+                Tables\Actions\DeleteAction::make()->after(function (News $record) {
                     if ($record->image) {
                         Storage::disk('public')->delete($record->image);
                     }
@@ -108,9 +100,9 @@ class EventResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListEvents::route('/'),
-            'create' => Pages\CreateEvent::route('/create'),
-            'edit' => Pages\EditEvent::route('/{record}/edit'),
+            'index' => Pages\ListNews::route('/'),
+            'create' => Pages\CreateNews::route('/create'),
+            'edit' => Pages\EditNews::route('/{record}/edit'),
         ];
     }
 }

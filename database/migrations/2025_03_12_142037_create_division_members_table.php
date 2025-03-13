@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("photo");
-            $table->enum("position", ["Ketua", "Sekretaris", "Anggota"]);
+            $table->enum("position", ["Ketua", "Anggota"]);
             $table->foreignId("division_id")->constrained("divisions")->onDelete("cascade");
             $table->timestamps();
         });

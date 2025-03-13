@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CoreManagement extends Model
 {
+    protected $table = 'core_managements';
     protected $fillable = ['name', 'photo', 'position'];
 
     // Enum untuk posisi agar bisa digunakan di controller

@@ -17,6 +17,6 @@ class DivisionMember extends Model
     // Enum untuk posisi dalam divisi
     public static function getPositions()
     {
-        return ["Ketua", "Sekretaris", "Anggota"];
+        return ["Ketua", "Anggota"];
     }
 }

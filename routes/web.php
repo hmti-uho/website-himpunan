@@ -6,11 +6,16 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SuggestionBoxController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use PHPUnit\Event\EventCollection;
 
+
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('Home/');
 });
+
+Route::get('Home/', [HomeController::class, 'index'])->name('home.index');
 
 // achievements
 Route::get("/achievements", [AchievementController::class, "index"])->name("achievements.index");

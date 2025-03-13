@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('core_managements', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("image");
+            $table->string("name");
+            $table->string("photo");
+            $table->enum("position", ["Ketua", "Wakil", "Sekretaris Jenderal", "Bendahara 1", "Bendahara 2"])->unique();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('core_managements');
     }
 };

@@ -4,6 +4,7 @@ use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrganizationStructureController;
 use App\Http\Controllers\SuggestionBoxController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -37,3 +38,8 @@ Route::post("/suggestion-box", [SuggestionBoxController::class, "store"])->name(
 Route::get("/news", [NewsController::class, "index"])->name("news.index");
 
 Route::get("/news/{id}", [NewsController::class, "show"])->name("news.show");
+
+// organization
+Route::get("/organization", [OrganizationStructureController::class, "index"])->name("organization.index");
+
+Route::get("/organization/{id}", [OrganizationStructureController::class, "show"])->name("organization.show");

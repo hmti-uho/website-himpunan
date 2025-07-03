@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --color-primary: #FFA500;
+    --color-dark: #1f2937;
+    --color-light: #f3f4f6;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(0, 0, 0, 0.7) 80%
+    );
+    z-index: 1;
+}
+
+.hero-section > div {
+    z-index: 2;
+}
+
+#carousel {
+    contain: strict;
+}
+
 @keyframes fade-in-up {
     0% {
         opacity: 0;
@@ -27,6 +53,7 @@
         transform: translateX(0);
     }
 }
+
 @keyframes slide-in-right {
     from {
         opacity: 0;
@@ -37,13 +64,245 @@
         transform: translateX(0);
     }
 }
+
 .animate-slide-in-left {
     animation: slide-in-left 1s ease-out forwards;
 }
+
 .animate-slide-in-right {
     animation: slide-in-right 1s ease-out forwards;
 }
 
 .hero-section {
     background-image: url('/public/image/hero.JPG');
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.logo-container {
+    position: relative;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.text-logo {
+    color: #FFA500;
+    font-size: 4rem;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    font-family: 'Arial', sans-serif;
+    margin-right: -60px;
+}
+
+.circle {
+    background-color: #FFA500;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hmti-text {
+    color: #000;
+    font-size: 2.5rem;
+    font-weight: bold;
+    position: absolute;
+    right: 30px;
+}
+
+.blade-section {
+    width: 100%;
+}
+
+/* Division Card Styles */
+.division-card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Menghapus overflow-hidden dari sini karena sekarang ada di class HTML */
+}
+
+.division-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, var(--color-primary), #FF8C00);
+    border-radius: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.division-card:hover::before {
+    opacity: 0.3;
+}
+
+.division-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 165, 0, 0.3);
+}
+
+.position-overlay {
+    background: linear-gradient(135deg, 
+        rgba(255, 165, 0, 0.95) 0%, 
+        rgba(255, 140, 0, 0.98) 100%);
+    backdrop-filter: blur(10px);
+}
+
+/* Updated Name Tag Styles - Full Width */
+
+
+.floating-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@layer components {
+    .division-card::before {
+        @apply content-[''] absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-dark rounded-3xl blur opacity-0 transition duration-300;
+    }
+    
+    .division-card:hover::before {
+        @apply opacity-75;
+    }
+}
+
+/* Tambahkan ke file CSS yang sudah ada */
+
+/* Enhanced card animations */
+.card-hover-effect {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-effect:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(255, 182, 44, 0.15);
+}
+
+/* Gradient background animations */
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.animated-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 6s ease infinite;
+}
+
+/* Enhanced floating animation for logo */
+@keyframes enhanced-float {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+    }
+    33% { 
+        transform: translateY(-8px) rotate(1deg); 
+    }
+    66% { 
+        transform: translateY(-4px) rotate(-1deg); 
+    }
+}
+
+.enhanced-floating {
+    animation: enhanced-float 8s ease-in-out infinite;
+}
+
+/* Button hover glow effect */
+.btn-glow:hover {
+    box-shadow: 0 0 20px rgba(255, 182, 44, 0.4);
+}
+
+/* Backdrop blur support */
+.backdrop-blur-custom {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Smooth scrolling behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Enhanced text shadow for better readability */
+.text-shadow-strong {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e69a0e;
 }

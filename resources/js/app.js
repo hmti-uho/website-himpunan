@@ -70,49 +70,53 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function lombaSection() {
-    return {
-        showContent: false,
-        days: "00",
-        hours: "00",
-        minutes: "00",
-        seconds: "00",
-        init() {
-            // Show content with delay
-            setTimeout(() => {
-                this.showContent = true;
-            }, 300);
-
-            // Set countdown date (example: 45 days from now)
-            const countdownDate = new Date();
-            countdownDate.setDate(countdownDate.getDate() + 45);
-
-            // Update countdown timer
-            this.updateCountdown(countdownDate);
-            setInterval(() => {
-                this.updateCountdown(countdownDate);
-            }, 1000);
-        },
-        updateCountdown(countdownDate) {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            if (distance > 0) {
-                this.days = String(
-                    Math.floor(distance / (1000 * 60 * 60 * 24))
-                ).padStart(2, "0");
-                this.hours = String(
-                    Math.floor(
-                        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                    )
-                ).padStart(2, "0");
-                this.minutes = String(
-                    Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-                ).padStart(2, "0");
-                this.seconds = String(
-                    Math.floor((distance % (1000 * 60)) / 1000)
-                ).padStart(2, "0");
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("animate-slide-in-left");
+                entry.target.classList.remove("opacity-0");
+                observer.unobserve(entry.target);
             }
-        },
-    };
-}
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll("#about-left, #about-right").forEach(el => {
+        observer.observe(el);
+    });
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll("#carousel > div");
+    const dots = document.querySelectorAll("#carousel button[id^='dot-']");
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle("hidden", i !== index);
+        });
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("bg-yellow-400", i === index);
+            dot.classList.toggle("bg-gray-300", i !== index);
+        });
+    }
+
+    document.getElementById("prev-slide").addEventListener("click", () => {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    document.getElementById("next-slide").addEventListener("click", () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+        });
+    });
+
+    // Initialize first slide
+    showSlide(currentSlide);
+});
+

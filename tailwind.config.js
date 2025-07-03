@@ -14,6 +14,22 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            animation: {
+                'blink': 'blink 1s step-end infinite',
+            },
+            keyframes: {
+                blink: {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0' },
+                }
+            },
+            colors: {
+                'primary': {
+                light: '#FFF9E8', // Versi lebih terang untuk background
+                DEFAULT: '#FFB22C', // Warna utama Anda
+                dark: '#E69A0E',   // Versi lebih gelap untuk hover/teks
+                }
+            }
         },
     },
     plugins: [],

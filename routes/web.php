@@ -16,6 +16,12 @@ Route::get('/', function () {
     return redirect('Home/');
 });
 
+Route::view('/tentang-hmti', 'about')->name('about');
+
+Route::view('/event', 'event')->name('event');
+
+Route::view('/news', 'news')->name('news');
+
 Route::get('Home/', [HomeController::class, 'index'])->name('home.index');
 
 // achievements
